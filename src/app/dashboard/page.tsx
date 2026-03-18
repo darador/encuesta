@@ -24,17 +24,24 @@ export default async function DashboardPage() {
   const validResponses = responses || [];
 
   return (
-    <main className="min-h-screen bg-[#F8FAFC] py-8 sm:py-16 px-4 sm:px-6 lg:px-8">
+    <main className="min-h-screen bg-gradient-to-br from-[#F0F9FF] to-[#E0F2FE] py-8 sm:py-16 px-4 sm:px-6 lg:px-8 font-sans selection:bg-blue-100">
       <div className="max-w-6xl mx-auto space-y-8">
-        
+
         {/* Header */}
-        <div className="flex items-center space-x-4 mb-10">
-          <div className="p-3 bg-blue-600 rounded-xl text-white shadow-md">
-            <BarChart3 size={28} />
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-12">
+          <div className="flex items-center space-x-6">
+            <div className="p-4 bg-[#019DF4] rounded-3xl text-white shadow-[0_8px_30px_rgba(1,157,244,0.3)] rotate-3">
+              <BarChart3 size={32} />
+            </div>
+            <div>
+              <h1 className="text-4xl sm:text-5xl font-black text-gray-900 tracking-tight leading-none mb-2">Dashboard</h1>
+              <p className="text-gray-400 font-bold uppercase tracking-[0.2em] text-[10px]">Análisis de resultados en tiempo real</p>
+            </div>
           </div>
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900 tracking-tight">Analytics Dashboard</h1>
-            <p className="text-gray-500 mt-1">Resultados agregados de la encuesta de clima laboral</p>
+          
+          <div className="flex items-center space-x-2 px-4 py-2 bg-white/50 backdrop-blur-sm rounded-2xl border border-white/20 text-[10px] font-black uppercase tracking-widest text-[#019DF4]">
+            <span className="w-2 h-2 rounded-full bg-[#019DF4] animate-pulse"></span>
+            <span>Live Data</span>
           </div>
         </div>
 
@@ -42,12 +49,17 @@ export default async function DashboardPage() {
         <DashboardCards responses={validResponses} />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          
+
           {/* Main Chart Column */}
-          <div className="lg:col-span-2 space-y-8">
+          <div className="lg:col-span-2 space-y-12">
             {/* 2. Score Distribution Chart */}
-            <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-              <h2 className="text-xl font-semibold text-gray-900 mb-6">Distribución de Puntuaciones</h2>
+            <div className="bg-white p-8 sm:p-10 rounded-[2.5rem] shadow-sm border border-gray-100 relative overflow-hidden">
+               <div className="flex items-center justify-between mb-8">
+                <div>
+                  <h2 className="text-2xl font-black text-gray-900 tracking-tight">Distribución</h2>
+                  <p className="text-gray-400 text-sm font-medium">Frecuencia de puntuaciones</p>
+                </div>
+              </div>
               <ScoreChart responses={validResponses} />
             </div>
 
@@ -56,20 +68,43 @@ export default async function DashboardPage() {
           </div>
 
           {/* Sidebar Column */}
-          <div className="space-y-8">
+          <div className="space-y-12">
             {/* 4. Keyword Analysis */}
             <KeywordAnalysis responses={validResponses} />
-            
-            {/* Context Widget */}
-            <div className="bg-gradient-to-br from-indigo-50 to-blue-50 p-6 rounded-2xl border border-indigo-100/50">
-              <h3 className="font-semibold text-indigo-900 mb-2">Sobre el eNPS</h3>
-              <p className="text-sm text-indigo-700/80 leading-relaxed mb-4">
-                El eNPS (Employee Net Promoter Score) se calcula restando el porcentaje de detractores (0-6) al porcentaje de promotores (9-10). Los pasivos (7-8) no se incluyen en el cálculo final pero cuentan para el total.
+
+            {/* eNPS Infographic Card */}
+            <div className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-gray-100 overflow-hidden relative group">
+              <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-blue-50 rounded-full blur-3xl opacity-50 group-hover:scale-150 transition-transform duration-1000"></div>
+              
+              <h3 className="text-xl font-black text-gray-900 tracking-tight mb-4">¿Cómo se mide?</h3>
+              <p className="text-sm text-gray-500 leading-relaxed font-medium mb-8">
+                El <strong className="text-gray-900">eNPS</strong> se calcula restando el % de detractores al % de promotores. Es el estándar para medir la lealtad y satisfacción del equipo.
               </p>
-              <div className="text-xs space-y-1 text-indigo-600/70">
-                <div className="flex justify-between"><span>Promotores (9-10):</span> <span>Se quedan</span></div>
-                <div className="flex justify-between"><span>Pasivos (7-8):</span> <span>Satisfechos</span></div>
-                <div className="flex justify-between"><span>Detractores (0-6):</span> <span>Riesgo</span></div>
+              
+              <div className="space-y-4">
+                <div className="p-4 rounded-3xl bg-emerald-50 border border-emerald-100/50">
+                  <div className="flex justify-between items-center mb-1">
+                    <span className="text-[10px] font-black text-emerald-600 uppercase tracking-widest">Promotores</span>
+                    <span className="text-xs font-bold text-emerald-600">9-10</span>
+                  </div>
+                  <p className="text-[11px] text-emerald-800/70 font-medium leading-tight">Embajadores altamente comprometidos que recomiendan la empresa.</p>
+                </div>
+                
+                <div className="p-4 rounded-3xl bg-amber-50 border border-amber-100/50">
+                  <div className="flex justify-between items-center mb-1">
+                    <span className="text-[10px] font-black text-amber-600 uppercase tracking-widest">Pasivos</span>
+                    <span className="text-xs font-bold text-amber-600">7-8</span>
+                  </div>
+                  <p className="text-[11px] text-amber-800/70 font-medium leading-tight">Satisfechos pero neutros. No se incluyen para calcular el score final.</p>
+                </div>
+                
+                <div className="p-4 rounded-3xl bg-rose-50 border border-rose-100/50">
+                  <div className="flex justify-between items-center mb-1">
+                    <span className="text-[10px] font-black text-rose-600 uppercase tracking-widest">Detractores</span>
+                    <span className="text-xs font-bold text-rose-600">0-6</span>
+                  </div>
+                  <p className="text-[11px] text-rose-800/70 font-medium leading-tight">Descontentos. Representan un riesgo de rotación y clima negativo.</p>
+                </div>
               </div>
             </div>
           </div>

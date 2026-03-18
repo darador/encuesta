@@ -11,7 +11,7 @@ export function KeywordAnalysis({ responses }: KeywordAnalysisProps) {
      'por', 'con', 'no', 'una', 'su', 'para', 'es', 'como', 'más', 'pero', 'al',
      'lo', 'o', 'este', 'ya', 'muy', 'nos', 'todo', 'está', 'sus', 'me', 'porque',
      'son', 'sin', 'hay', 'hacer', 'bien', 'si', 'te', 'esta', 'le', 'cuando', 'mi',
-     'eso', 'estoy', 'también', 'nada', 'hasta', 'sobre', 'poco', 'tiene', 'donde'
+     'eso', 'estoy', 'también', 'nada', 'hasta', 'sobre', 'poco', 'tiene', 'donde', 'hacia', 'tenemos', 'puedo', 'pueden'
   ]);
 
   const wordCounts: Record<string, number> = {};
@@ -30,38 +30,46 @@ export function KeywordAnalysis({ responses }: KeywordAnalysisProps) {
     });
   });
 
-  // Sort and pick top 10
+  // Sort and pick top 12
   const topWords = Object.entries(wordCounts)
     .sort((a, b) => b[1] - a[1])
-    .filter(([_, count]) => count > 1) // Only show words appearing more than once
-    .slice(0, 10);
+    .filter(([_, count]) => count >= 1) 
+    .slice(0, 12);
 
   if (topWords.length === 0) {
     return (
-      <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-        <h3 className="text-lg font-semibold text-gray-900 mb-2">Temas Recurrentes</h3>
-        <p className="text-sm text-gray-500">No hay suficientes datos de texto para analizar temas recurrentes.</p>
+      <div className="bg-white p-8 rounded-[2rem] shadow-sm border border-gray-100 flex flex-col items-center justify-center text-center space-y-4">
+        <div className="p-4 bg-gray-50 text-gray-300 rounded-full">
+          <Hash size={32} />
+        </div>
+        <p className="text-sm font-bold text-gray-400 uppercase tracking-widest leading-relaxed">No hay suficientes datos<br/>para análisis de temas</p>
       </div>
     );
   }
 
   return (
-    <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-      <div className="flex items-center space-x-2 mb-6">
-        <Hash size={20} className="text-indigo-500" />
-        <h3 className="text-lg font-semibold text-gray-900">Temas Recurrentes</h3>
+    <div className="bg-white p-8 rounded-[2rem] shadow-sm border border-gray-100 relative overflow-hidden group">
+      <div className="absolute top-0 right-0 p-4 opacity-5 rotate-12 transition-transform duration-700 group-hover:rotate-45">
+        <Hash size={64} />
       </div>
       
-      <div className="flex flex-wrap gap-2">
+      <div className="flex items-center space-x-3 mb-8">
+        <div className="p-2 bg-blue-50 text-[#019DF4] rounded-xl">
+          <Hash size={20} />
+        </div>
+        <h3 className="text-xl font-black text-gray-900 tracking-tight">Temas Recurrentes</h3>
+      </div>
+      
+      <div className="flex flex-wrap gap-3">
         {topWords.map(([word, count]) => (
           <div 
             key={word} 
-            className="flex items-center bg-gray-50 border border-gray-200 rounded-full px-3 py-1.5 text-sm"
+            className="group flex items-center bg-gray-50 border border-gray-100 rounded-2xl px-4 py-2 hover:bg-[#019DF4] hover:text-white hover:border-[#019DF4] transition-all duration-300 cursor-default"
           >
-            <span className="font-medium text-gray-700 capitalize">{word}</span>
-            <span className="ml-2 text-xs text-gray-400 bg-white px-1.5 py-0.5 rounded-full border border-gray-100">
+            <span className="font-bold text-gray-600 group-hover:text-white capitalize text-sm">{word}</span>
+            <div className="ml-3 text-[10px] font-black bg-white text-gray-400 group-hover:bg-[#015494] group-hover:text-white px-2 py-0.5 rounded-lg border border-gray-100 group-hover:border-transparent transition-colors">
               {count}
-            </span>
+            </div>
           </div>
         ))}
       </div>
