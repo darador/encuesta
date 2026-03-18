@@ -129,7 +129,7 @@ export function SurveyForm() {
             rows={4}
             value={negativeFeedback}
             onChange={(e) => setNegativeFeedback(e.target.value)}
-            className="w-full px-5 py-4 rounded-2xl border-2 border-gray-100 bg-gray-50/50 focus:bg-white focus:border-blue-500/50 focus:ring-4 focus:ring-blue-50 transition-all duration-300 outline-none resize-none text-gray-700 leading-relaxed placeholder:text-gray-300"
+            className="w-full px-5 py-4 rounded-2xl border-2 border-gray-200 bg-gray-50/30 focus:bg-white focus:border-[#019DF4] focus:ring-4 focus:ring-blue-50 transition-all duration-300 outline-none resize-none text-gray-700 leading-relaxed placeholder:text-gray-400"
             placeholder="Escribe tus comentarios de forma honesta..."
           />
           <div className="absolute right-4 bottom-4 text-[10px] font-bold text-gray-300 uppercase tracking-widest">Opcional</div>
@@ -147,7 +147,7 @@ export function SurveyForm() {
             rows={4}
             value={improvement}
             onChange={(e) => setImprovement(e.target.value)}
-            className="w-full px-5 py-4 rounded-2xl border-2 border-gray-100 bg-gray-50/50 focus:bg-white focus:border-blue-500/50 focus:ring-4 focus:ring-blue-50 transition-all duration-300 outline-none resize-none text-gray-700 leading-relaxed placeholder:text-gray-300"
+            className="w-full px-5 py-4 rounded-2xl border-2 border-gray-200 bg-gray-50/30 focus:bg-white focus:border-[#019DF4] focus:ring-4 focus:ring-blue-50 transition-all duration-300 outline-none resize-none text-gray-700 leading-relaxed placeholder:text-gray-400"
             placeholder="Danos una idea para mejorar el día a día..."
           />
           <div className="absolute right-4 bottom-4 text-[10px] font-bold text-gray-300 uppercase tracking-widest">Opcional</div>
