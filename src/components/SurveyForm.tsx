@@ -70,80 +70,92 @@ export function SurveyForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-10">
+    <form onSubmit={handleSubmit} className="space-y-12">
       {/* 1. eNPS Question */}
-      <div className="space-y-4">
-        <label className="block text-lg font-medium text-gray-900">
+      <div className="space-y-6">
+        <label className="block text-xl font-bold text-gray-900 tracking-tight leading-tight">
           ¿Con qué probabilidad recomendarías la empresa como un buen lugar para trabajar a alguien cercano?
         </label>
-        <div className="flex justify-between items-center gap-1 sm:gap-2 mt-2 overflow-x-auto pb-2 sm:pb-0 no-scrollbar">
-          {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => {
-            const isSelected = score === num;
-            let activeClass = 'bg-blue-600 text-white shadow-md scale-110 ring-2 ring-blue-600 ring-offset-2';
-            
-            if (isSelected) {
-              if (num <= 6) activeClass = 'bg-red-500 text-white shadow-md scale-110 ring-2 ring-red-500 ring-offset-2';
-              else if (num <= 8) activeClass = 'bg-yellow-400 text-gray-900 shadow-md scale-110 ring-2 ring-yellow-400 ring-offset-2';
-              else activeClass = 'bg-green-500 text-white shadow-md scale-110 ring-2 ring-green-500 ring-offset-2';
-            }
+        
+        {/* Container with padding to prevent clipping of scale/ring effects */}
+        <div className="relative pt-2 pb-6 px-4 -mx-4 overflow-x-auto no-scrollbar">
+          <div className="flex justify-between items-center gap-2 min-w-[320px]">
+            {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => {
+              const isSelected = score === num;
+              let activeClass = '';
+              
+              if (isSelected) {
+                if (num <= 6) activeClass = 'bg-red-500 text-white shadow-lg shadow-red-200 scale-125 ring-4 ring-red-100 z-10';
+                else if (num <= 8) activeClass = 'bg-amber-400 text-amber-950 shadow-lg shadow-amber-100 scale-125 ring-4 ring-amber-50 z-10';
+                else activeClass = 'bg-emerald-500 text-white shadow-lg shadow-emerald-200 scale-125 ring-4 ring-emerald-50 z-10';
+              }
 
-            return (
-              <button
-                key={num}
-                type="button"
-                onClick={() => {
-                  setScore(num);
-                  setError(null);
-                }}
-                className={`flex-shrink-0 w-8 h-8 sm:w-12 sm:h-12 rounded-lg text-xs sm:text-base font-semibold transition-all duration-200 flex items-center justify-center
-                  ${isSelected ? activeClass : 'bg-gray-100 text-gray-700 hover:bg-gray-200 hover:scale-105'}
-                `}
-              >
-                {num}
-              </button>
-            );
-          })}
+              return (
+                <button
+                  key={num}
+                  type="button"
+                  onClick={() => {
+                    setScore(num);
+                    setError(null);
+                  }}
+                  className={`flex-shrink-0 w-8 h-8 sm:w-12 sm:h-12 rounded-xl text-xs sm:text-base font-bold transition-all duration-300 ease-out flex items-center justify-center
+                    ${isSelected 
+                      ? activeClass 
+                      : 'bg-gray-50 text-gray-500 hover:bg-gray-100 hover:text-gray-900 hover:scale-105 active:scale-95'
+                    }
+                  `}
+                >
+                  {num}
+                </button>
+              );
+            })}
+          </div>
         </div>
-        <div className="flex justify-between text-[10px] sm:text-xs text-gray-500 px-1 mt-1">
+        
+        <div className="flex justify-between text-xs font-semibold uppercase tracking-widest text-gray-400 px-1 mt-1">
           <span>0 - Nada probable</span>
           <span>10 - Muy probable</span>
         </div>
       </div>
 
       {/* 2. Negative Feedback Question */}
-      <div className="space-y-3">
-        <label htmlFor="negativeFeedback" className="block text-lg font-medium text-gray-900">
+      <div className="space-y-4">
+        <label htmlFor="negativeFeedback" className="block text-xl font-bold text-gray-900 tracking-tight">
           ¿Qué es lo que más afecta negativamente tu experiencia laboral hoy?
         </label>
-        <p className="text-sm text-gray-500">Opcional</p>
-        <textarea
-          id="negativeFeedback"
-          rows={4}
-          value={negativeFeedback}
-          onChange={(e) => setNegativeFeedback(e.target.value)}
-          className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200 outline-none resize-none"
-          placeholder="Escribe tus comentarios aquí..."
-        />
+        <div className="relative group">
+          <textarea
+            id="negativeFeedback"
+            rows={4}
+            value={negativeFeedback}
+            onChange={(e) => setNegativeFeedback(e.target.value)}
+            className="w-full px-5 py-4 rounded-2xl border-2 border-gray-100 bg-gray-50/50 focus:bg-white focus:border-blue-500/50 focus:ring-4 focus:ring-blue-50 transition-all duration-300 outline-none resize-none text-gray-700 leading-relaxed placeholder:text-gray-300"
+            placeholder="Escribe tus comentarios de forma honesta..."
+          />
+          <div className="absolute right-4 bottom-4 text-[10px] font-bold text-gray-300 uppercase tracking-widest">Opcional</div>
+        </div>
       </div>
 
       {/* 3. Improvement Question */}
-      <div className="space-y-3">
-        <label htmlFor="improvement" className="block text-lg font-medium text-gray-900">
+      <div className="space-y-4">
+        <label htmlFor="improvement" className="block text-xl font-bold text-gray-900 tracking-tight">
           Si pudieras cambiar una sola cosa en la empresa mañana, ¿qué cambiarías?
         </label>
-        <p className="text-sm text-gray-500">Opcional</p>
-        <textarea
-          id="improvement"
-          rows={4}
-          value={improvement}
-          onChange={(e) => setImprovement(e.target.value)}
-          className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200 outline-none resize-none"
-          placeholder="Escribe tus ideas de mejora aquí..."
-        />
+        <div className="relative group">
+          <textarea
+            id="improvement"
+            rows={4}
+            value={improvement}
+            onChange={(e) => setImprovement(e.target.value)}
+            className="w-full px-5 py-4 rounded-2xl border-2 border-gray-100 bg-gray-50/50 focus:bg-white focus:border-blue-500/50 focus:ring-4 focus:ring-blue-50 transition-all duration-300 outline-none resize-none text-gray-700 leading-relaxed placeholder:text-gray-300"
+            placeholder="Danos una idea para mejorar el día a día..."
+          />
+          <div className="absolute right-4 bottom-4 text-[10px] font-bold text-gray-300 uppercase tracking-widest">Opcional</div>
+        </div>
       </div>
 
       {error && (
-        <div className="p-4 bg-red-50 text-red-600 rounded-xl text-sm border border-red-100">
+        <div className="p-4 bg-red-50 text-red-600 rounded-2xl text-sm font-medium border border-red-100 animate-pulse">
           {error}
         </div>
       )}
@@ -152,16 +164,21 @@ export function SurveyForm() {
       <button
         type="submit"
         disabled={isSubmitting || score === null}
-        className="w-full py-4 px-6 bg-gray-900 hover:bg-black text-white rounded-xl font-medium text-lg transition-all duration-200 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl"
+        className="group relative w-full overflow-hidden py-5 px-8 bg-gray-900 text-white rounded-2xl font-bold text-lg transition-all duration-500 hover:bg-black disabled:opacity-30 disabled:grayscale disabled:cursor-not-allowed shadow-xl hover:shadow-2xl active:scale-[0.98]"
       >
-        {isSubmitting ? (
-          <>
-            <Loader2 className="animate-spin mr-2 h-5 w-5" />
-            Enviando...
-          </>
-        ) : (
-          'Enviar respuesta'
-        )}
+        <div className="relative flex items-center justify-center space-x-2">
+          {isSubmitting ? (
+            <>
+              <Loader2 className="animate-spin h-5 w-5" />
+              <span className="tracking-tight">Enviando respuesta...</span>
+            </>
+          ) : (
+            <>
+              <span className="tracking-tight">Enviar Feedback Anónimo</span>
+              <CheckCircle2 className="h-5 w-5 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
+            </>
+          )}
+        </div>
       </button>
     </form>
   );
