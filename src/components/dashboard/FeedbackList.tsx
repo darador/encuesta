@@ -38,7 +38,11 @@ export function FeedbackList({ responses }: FeedbackListProps) {
                 <p className="text-gray-700 whitespace-pre-wrap leading-relaxed font-medium">"{response.negative_feedback}"</p>
                 <div className="mt-4 flex items-center justify-between border-t border-gray-100/50 pt-4">
                   <div className="flex items-center space-x-2">
-                    <span className={`px-2 py-0.5 rounded-md text-[10px] font-black uppercase tracking-tighter ${response.score <= 6 ? 'bg-rose-100 text-rose-600' : 'bg-gray-200 text-gray-500'}`}>
+                    <span className={`px-2 py-0.5 rounded-md text-[10px] font-black uppercase tracking-tighter 
+                      ${response.score <= 6 ? 'bg-rose-100 text-rose-600' : 
+                        response.score <= 8 ? 'bg-amber-100 text-amber-600' : 
+                        'bg-emerald-100 text-emerald-600'}`}
+                    >
                       Score: {response.score}
                     </span>
                   </div>
@@ -76,7 +80,11 @@ export function FeedbackList({ responses }: FeedbackListProps) {
                 <p className="text-gray-800 whitespace-pre-wrap leading-relaxed font-medium italic">"{response.improvement}"</p>
                 <div className="mt-4 flex items-center justify-between border-t border-blue-50 pt-4">
                    <div className="flex items-center space-x-2">
-                    <span className={`px-2 py-0.5 rounded-md text-[10px] font-black uppercase tracking-tighter ${response.score >= 9 ? 'bg-emerald-100 text-emerald-600' : 'bg-gray-200 text-gray-500'}`}>
+                    <span className={`px-2 py-0.5 rounded-md text-[10px] font-black uppercase tracking-tighter 
+                      ${response.score <= 6 ? 'bg-rose-100 text-rose-600' : 
+                        response.score <= 8 ? 'bg-amber-100 text-amber-600' : 
+                        'bg-emerald-100 text-emerald-600'}`}
+                    >
                       Score: {response.score}
                     </span>
                   </div>
