@@ -7,7 +7,7 @@ export function SurveyForm() {
   const [score, setScore] = useState<number | null>(null);
   const [negativeFeedback, setNegativeFeedback] = useState('');
   const [improvement, setImprovement] = useState('');
-  
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -22,7 +22,7 @@ export function SurveyForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (score === null) {
       setError('Por favor, selecciona una puntuación antes de enviar.');
       return;
@@ -76,18 +76,18 @@ export function SurveyForm() {
         <label className="block text-xl font-bold text-gray-900 tracking-tight leading-tight">
           ¿Con qué probabilidad recomendarías la empresa como un buen lugar para trabajar a alguien cercano?
         </label>
-        
-        {/* Container with padding to prevent clipping of scale/ring effects */}
-        <div className="relative pt-2 pb-6 px-4 -mx-4 overflow-x-auto no-scrollbar">
-          <div className="flex justify-between items-center gap-2 min-w-[320px]">
+
+        {/* Container optimized to fit all 11 buttons on one line even on small screens */}
+        <div className="relative pt-2 pb-6 px-1 overflow-x-visible">
+          <div className="flex justify-between items-center gap-1 sm:gap-2">
             {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => {
               const isSelected = score === num;
               let activeClass = '';
               
               if (isSelected) {
-                if (num <= 6) activeClass = 'bg-red-500 text-white shadow-lg shadow-red-200 scale-125 ring-4 ring-red-100 z-10';
-                else if (num <= 8) activeClass = 'bg-amber-400 text-amber-950 shadow-lg shadow-amber-100 scale-125 ring-4 ring-amber-50 z-10';
-                else activeClass = 'bg-emerald-500 text-white shadow-lg shadow-emerald-200 scale-125 ring-4 ring-emerald-50 z-10';
+                if (num <= 6) activeClass = 'bg-red-500 text-white shadow-lg shadow-red-200 scale-125 ring-2 ring-red-500 ring-offset-2 z-10';
+                else if (num <= 8) activeClass = 'bg-amber-400 text-amber-950 shadow-lg shadow-amber-100 scale-125 ring-2 ring-amber-400 ring-offset-2 z-10';
+                else activeClass = 'bg-emerald-500 text-white shadow-lg shadow-emerald-200 scale-125 ring-2 ring-emerald-500 ring-offset-2 z-10';
               }
 
               return (
@@ -98,10 +98,10 @@ export function SurveyForm() {
                     setScore(num);
                     setError(null);
                   }}
-                  className={`flex-shrink-0 w-8 h-8 sm:w-12 sm:h-12 rounded-xl text-xs sm:text-base font-bold transition-all duration-300 ease-out flex items-center justify-center
+                  className={`flex-1 min-w-0 h-8 sm:h-12 rounded-lg sm:rounded-xl text-[10px] sm:text-base font-bold transition-all duration-300 ease-out flex items-center justify-center
                     ${isSelected 
                       ? activeClass 
-                      : 'bg-gray-50 text-gray-500 hover:bg-gray-100 hover:text-gray-900 hover:scale-105 active:scale-95'
+                      : 'bg-gray-50 text-gray-400 hover:bg-gray-100 hover:text-[#019DF4] hover:scale-105 active:scale-95 border border-gray-100'
                     }
                   `}
                 >
@@ -111,7 +111,7 @@ export function SurveyForm() {
             })}
           </div>
         </div>
-        
+
         <div className="flex justify-between text-xs font-semibold uppercase tracking-widest text-gray-400 px-1 mt-1">
           <span>0 - Nada probable</span>
           <span>10 - Muy probable</span>
@@ -164,7 +164,7 @@ export function SurveyForm() {
       <button
         type="submit"
         disabled={isSubmitting || score === null}
-        className="group relative w-full overflow-hidden py-5 px-8 bg-gray-900 text-white rounded-2xl font-bold text-lg transition-all duration-500 hover:bg-black disabled:opacity-30 disabled:grayscale disabled:cursor-not-allowed shadow-xl hover:shadow-2xl active:scale-[0.98]"
+        className="group relative w-full overflow-hidden py-5 px-8 bg-[#019DF4] text-white rounded-2xl font-black text-lg transition-all duration-500 hover:bg-[#015494] disabled:opacity-30 disabled:grayscale disabled:cursor-not-allowed shadow-xl shadow-blue-200 hover:shadow-2xl active:scale-[0.98]"
       >
         <div className="relative flex items-center justify-center space-x-2">
           {isSubmitting ? (
@@ -174,7 +174,7 @@ export function SurveyForm() {
             </>
           ) : (
             <>
-              <span className="tracking-tight">Enviar Feedback Anónimo</span>
+              <span className="tracking-tight">Enviar</span>
               <CheckCircle2 className="h-5 w-5 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
             </>
           )}
