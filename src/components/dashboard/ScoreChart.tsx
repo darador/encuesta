@@ -63,7 +63,7 @@ export function ScoreChart({ responses }: ScoreChartProps) {
           <Tooltip 
             cursor={{ fill: '#f3f4f6' }}
             contentStyle={{ borderRadius: '0.75rem', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
-            formatter={(value) => [value, 'Respuestas'] as [number, string]}
+            formatter={(value: any) => [value, 'Respuestas']}
             labelFormatter={(label) => `Puntuación: ${label}`}
           />
           <Bar dataKey="count" radius={[4, 4, 0, 0]}>
