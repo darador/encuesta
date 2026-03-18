@@ -76,26 +76,35 @@ export function SurveyForm() {
         <label className="block text-lg font-medium text-gray-900">
           ¿Con qué probabilidad recomendarías la empresa como un buen lugar para trabajar a alguien cercano?
         </label>
-        <div className="flex flex-wrap gap-2 sm:justify-between justify-center mt-2">
-          {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
-            <button
-              key={num}
-              type="button"
-              onClick={() => {
-                setScore(num);
-                setError(null);
-              }}
-              className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg text-sm sm:text-base font-semibold transition-all duration-200 flex items-center justify-center
-                ${score === num 
-                  ? 'bg-blue-600 text-white shadow-md scale-110 ring-2 ring-blue-600 ring-offset-2' 
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200 hover:scale-105'
-                }`}
-            >
-              {num}
-            </button>
-          ))}
+        <div className="flex justify-between items-center gap-1 sm:gap-2 mt-2 overflow-x-auto pb-2 sm:pb-0 no-scrollbar">
+          {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => {
+            const isSelected = score === num;
+            let activeClass = 'bg-blue-600 text-white shadow-md scale-110 ring-2 ring-blue-600 ring-offset-2';
+            
+            if (isSelected) {
+              if (num <= 6) activeClass = 'bg-red-500 text-white shadow-md scale-110 ring-2 ring-red-500 ring-offset-2';
+              else if (num <= 8) activeClass = 'bg-yellow-400 text-gray-900 shadow-md scale-110 ring-2 ring-yellow-400 ring-offset-2';
+              else activeClass = 'bg-green-500 text-white shadow-md scale-110 ring-2 ring-green-500 ring-offset-2';
+            }
+
+            return (
+              <button
+                key={num}
+                type="button"
+                onClick={() => {
+                  setScore(num);
+                  setError(null);
+                }}
+                className={`flex-shrink-0 w-8 h-8 sm:w-12 sm:h-12 rounded-lg text-xs sm:text-base font-semibold transition-all duration-200 flex items-center justify-center
+                  ${isSelected ? activeClass : 'bg-gray-100 text-gray-700 hover:bg-gray-200 hover:scale-105'}
+                `}
+              >
+                {num}
+              </button>
+            );
+          })}
         </div>
-        <div className="flex justify-between text-xs text-gray-500 px-1 mt-2">
+        <div className="flex justify-between text-[10px] sm:text-xs text-gray-500 px-1 mt-1">
           <span>0 - Nada probable</span>
           <span>10 - Muy probable</span>
         </div>

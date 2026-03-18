@@ -11,13 +11,13 @@ export default function Home() {
             <ShieldCheck size={28} />
           </div>
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 tracking-tight">
-            Encuesta de Clima Laboral
+            Encuesta
           </h1>
           <div className="bg-blue-50/50 rounded-xl p-5 border border-blue-100">
             <p className="text-gray-700 leading-relaxed">
               Esta encuesta es <span className="font-semibold text-blue-700">completamente anónima</span>.<br />
               No se recopilan correos ni datos personales.<br />
-              El objetivo es identificar mejoras reales en el equipo y en la organización.
+              El objetivo es identificar mejoras reales en el equipo.
             </p>
           </div>
         </div>
